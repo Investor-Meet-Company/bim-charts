@@ -1,14 +1,14 @@
 apiVersion: v1
 entries:
-  myfreexe:
+  bim-chart:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-04-24T18:59:16.989040759Z"
+    created: "2022-04-24T19:08:36.287328441Z"
     description: A Helm chart for Kubernetes
-    digest: f0f978ebaecbbde14615614db63b1187c6d777f6cc3130c3573a2082b9cfa079
-    name: myfreexe
+    digest: 81f9a82a8a23e0b0c9f6f9914b935c189234fa425e8d3d77bee648d2c1adbaaf
+    name: bim-chart
     type: application
     urls:
-    - https://github.com/Investor-Meet-Company/bim-charts/releases/download/myfreexe-0.1.0/myfreexe-0.1.0.tgz
-    version: 0.1.0
-generated: "2022-04-24T18:59:16.68132707Z"
+    - https://github.com/Investor-Meet-Company/bim-charts/releases/download/bim-chart-0.2.0/bim-chart-0.2.0.tgz
+    version: 0.2.0
+generated: "2022-04-24T19:08:35.959675769Z"
