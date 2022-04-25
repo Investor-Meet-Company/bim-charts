@@ -14,15 +14,38 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          args:
-            - -text
-            - {{ .Values.image.text }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.image.port }}
+          env:
+            - name: DB_HOST
+              value: "localhost"
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_USERNAME
+              value: "bn_myapp"
+            - name: DB_PASSWORD
+              value: "ggdghh54y5hth"
+            - name: DB_DATABASE
+              value: "bitnami_myapp"
           envFrom:
             - configMapRef:
                 name: {{ include "myfreexe.fullname" . }}-env
             - secretRef:
                 name: {{ include "myfreexe.fullname" . }}-secrets
+        - name: {{ .Chart.Name }}-mysql
+          image: mysql:latest
+          env:
+            - name: MYSQL_ALLOW_EMPTY_PASSWORD
+              value: "true"
+            - name: MYSQL_USER
+              value: "bn_myapp"
+            - name: MYSQL_PASSWORD
+              value: "ggdghh54y5hth"
+            - name: MYSQL_DATABASE
+              value: "bitnami_myapp"
+            - name: MYSQL_ROOT_PASSWORD
+              value: ""
+      imagePullSecrets:
+        - name: regcred
