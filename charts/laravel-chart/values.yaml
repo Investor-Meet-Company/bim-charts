@@ -1,0 +1,19 @@
+
+
+image:
+  repository: hashicorp/http-echo
+  pullPolicy: IfNotPresent
+  tag: latest # overwise it uses the Chart.yaml #appVersion
+  port: 5678
+  text: you are on example.lainchbury.uk
+
+service:
+  port: 80
+
+ingress:
+  hosts:
+    - host: example.lainchbury.uk
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+

@@ -1,0 +1,5 @@
+image:
+  repository: cloudflare/cloudflared
+  pullPolicy: IfNotPresent
+
+token: #required
