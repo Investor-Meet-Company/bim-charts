@@ -31,9 +31,10 @@ spec:
               value: "bitnami_myapp"
           envFrom:
             - configMapRef:
-                name: {{ include "myfreexe.fullname" . }}-env
+                name: "{{ include \"myfreexe.fullname\" . }}-env"
             - secretRef:
-                name: {{ include "myfreexe.fullname" . }}-secrets
+                name: "{{ include \"myfreexe.fullname\" . }}-secrets"
+
         - name: {{ .Chart.Name }}-mysql
           image: mysql:latest
           env:
