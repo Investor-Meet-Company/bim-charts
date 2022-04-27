@@ -56,6 +56,16 @@ entries:
   laravel-chart:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2022-04-27T13:49:44.970303349Z"
+    description: A Helm chart for Kubernetes
+    digest: 9278b61ce463326a25865e96ab1a96a43185fe5a7be8332e2c63980aa46e8ebe
+    name: laravel-chart
+    type: application
+    urls:
+    - https://github.com/Investor-Meet-Company/bim-charts/releases/download/laravel-chart-0.4.0/laravel-chart-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2022-04-27T13:36:11.556420315Z"
     description: A Helm chart for Kubernetes
     digest: 023ddbfd81658fcb85b137e1fc04ddb2078b713ede3b17fe373b63f8c2255a15
