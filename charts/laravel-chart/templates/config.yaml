@@ -3,4 +3,6 @@ kind: ConfigMap
 metadata:
   name: {{ include "myfreexe.fullname" . }}-env
 data:
+  APP_DEBUG: "true"
+  APP_ENV: "local"
   APP_NAME: "Name"
