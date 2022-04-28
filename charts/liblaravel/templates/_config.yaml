@@ -1,3 +1,4 @@
+{{- define "liblaravel.config.tpl" -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -7,3 +8,7 @@ data:
   APP_ENV: "local"
   APP_NAME: "Name"
   APP_KEY: "base64:fJZN6TrXzqgb6ppUrpV27n49wb3S+o3Q4Odm5zZWocY="
+{{- end -}}
+{{- define "liblaravel.config" -}}
+{{- include "liblaravel.util.merge" (append . "liblaravel.config.tpl") -}}
+{{- end -}}

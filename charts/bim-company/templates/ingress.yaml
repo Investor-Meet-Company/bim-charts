@@ -1,0 +1,4 @@
+{{- include "liblaravel.ingress" (list . "bim-company.ingress") -}}
+{{- define "bim-company.ingress" -}}
+
+{{- end -}}

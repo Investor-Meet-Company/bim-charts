@@ -1,3 +1,4 @@
+{{- define "liblaravel.service.tpl" -}}
 apiVersion: v1
 kind: Service
 metadata:
@@ -9,3 +10,7 @@ spec:
   selector:
     {{- include "liblaravel.selectorLabels" . | nindent 4 }}
   type: LoadBalancer
+{{- end -}}
+{{- define "liblaravel.service" -}}
+{{- include "liblaravel.util.merge" (append . "liblaravel.service.tpl") -}}
+{{- end -}}

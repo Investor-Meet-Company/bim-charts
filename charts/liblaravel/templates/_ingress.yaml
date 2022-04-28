@@ -1,3 +1,4 @@
+{{- define "liblaravel.ingress.tpl" -}}
 {{- $fullName := include "liblaravel.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
 apiVersion: networking.k8s.io/v1
@@ -18,3 +19,7 @@ spec:
             path: /
             pathType: Prefix
     {{- end }}
+{{- end -}}
+{{- define "liblaravel.ingress" -}}
+{{- include "liblaravel.util.merge" (append . "liblaravel.ingress.tpl") -}}
+{{- end -}}

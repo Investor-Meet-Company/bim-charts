@@ -1,3 +1,4 @@
+{{- define "liblaravel.deployment.tpl" -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -50,3 +51,7 @@ spec:
               value: ""
       imagePullSecrets:
         - name: regcred
+{{- end -}}
+{{- define "liblaravel.deployment" -}}
+{{- include "liblaravel.util.merge" (append . "liblaravel.deployment.tpl") -}}
+{{- end -}}
