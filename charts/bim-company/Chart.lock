@@ -1,6 +1,0 @@
-dependencies:
-- name: liblaravel
-  repository: file://../liblaravel
-  version: 0.2.0
-digest: sha256:bf30d3b57daed20b1c77957893ebcd7b07aa8b621b51d780998b4b662c64987d
-generated: "2022-04-28T20:46:36.028217135+01:00"

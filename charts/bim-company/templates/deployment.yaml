@@ -1,4 +1,0 @@
-{{- include "liblaravel.deployment" (list . "bim-company.deployment") -}}
-{{- define "bim-company.deployment" -}}
-
-{{- end -}}
