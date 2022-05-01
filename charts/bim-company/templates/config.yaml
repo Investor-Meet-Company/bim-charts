@@ -1,6 +1,0 @@
-{{- include "liblaravel.config" (list . "bim-company.config") -}}
-{{- define "bim-company.config" -}}
-data:
-  APP_NAME: "Bim Company"
-  APP_KEY: "base64:fJZN6TrXzqgb6ppUrpV27n49wb3S+o3Q4Odm5zZWofY="
-{{- end -}}
