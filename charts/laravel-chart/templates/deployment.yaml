@@ -32,8 +32,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: "{{ include "liblaravel.fullname" . }}-env"
-            - secretRef:
-                name: "{{ include "liblaravel.fullname" . }}-secrets"
 
         - name: {{ .Chart.Name }}-mysql
           image: mysql:latest
