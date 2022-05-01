@@ -14,6 +14,16 @@ entries:
   cloud-chart:
   - apiVersion: v2
     appVersion: 2022.4.1
+    created: "2022-05-01T21:12:26.169315261Z"
+    description: A Helm chart for Kubernetes
+    digest: 76b39833b44b64a8a3a02e79885f3ee8712344c914cb3ab9df19ff0055a3cab2
+    name: cloud-chart
+    type: application
+    urls:
+    - https://github.com/Investor-Meet-Company/bim-charts/releases/download/cloud-chart-0.3.0/cloud-chart-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
+    appVersion: 2022.4.1
     created: "2022-04-27T13:36:11.214467136Z"
     description: A Helm chart for Kubernetes
     digest: 790e0869c7295e8fd2fa3603d2c46d5f26abbff90749f96ad983180761cd3180
@@ -35,6 +45,16 @@ entries:
   echo-chart:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2022-05-01T21:12:26.339723006Z"
+    description: A Helm chart for Kubernetes
+    digest: d8c38ba223448498c80055858aeaf448051cd010900f822be772dc59d222596f
+    name: echo-chart
+    type: application
+    urls:
+    - https://github.com/Investor-Meet-Company/bim-charts/releases/download/echo-chart-0.4.0/echo-chart-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2022-04-27T13:36:11.381100554Z"
     description: A Helm chart for Kubernetes
     digest: fd84d239d76b6784726a1b775cb5cf3ea59916457589ac8d44859b9f43e6d7ea
@@ -54,6 +74,16 @@ entries:
     - https://github.com/Investor-Meet-Company/bim-charts/releases/download/echo-chart-0.2.0/echo-chart-0.2.0.tgz
     version: 0.2.0
   laravel-chart:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-05-01T21:12:26.510403147Z"
+    description: A Helm chart for Kubernetes
+    digest: b9a48f5ec2bd7c6746b8a40f84883d8ab3d0893c0a6c185c288e2a3e147c10f2
+    name: laravel-chart
+    type: application
+    urls:
+    - https://github.com/Investor-Meet-Company/bim-charts/releases/download/laravel-chart-0.6.0/laravel-chart-0.6.0.tgz
+    version: 0.6.0
   - apiVersion: v2
     appVersion: 1.16.0
     created: "2022-04-27T13:49:44.970303349Z"
@@ -84,4 +114,15 @@ entries:
     urls:
     - https://github.com/Investor-Meet-Company/bim-charts/releases/download/laravel-chart-0.2.0/laravel-chart-0.2.0.tgz
     version: 0.2.0
+  liblaravel:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-05-01T21:12:26.698939662Z"
+    description: A Helm library chart for laravel on Kubernetes
+    digest: 68c4be16945daac81258c69ec790f5174d77eb05ced69810b03217d369d49da9
+    name: liblaravel
+    type: library
+    urls:
+    - https://github.com/Investor-Meet-Company/bim-charts/releases/download/liblaravel-0.3.0/liblaravel-0.3.0.tgz
+    version: 0.3.0
 generated: "2022-04-24T19:08:35.959675769Z"
