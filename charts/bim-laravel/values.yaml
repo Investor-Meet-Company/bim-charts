@@ -1,0 +1,15 @@
+
+
+image:
+  registry: #required
+  repository: #required
+  pullPolicy: Always
+  tag: #required
+  port: 80
+
+service:
+  port: 80
+
+ingress:
+  host: #required
+

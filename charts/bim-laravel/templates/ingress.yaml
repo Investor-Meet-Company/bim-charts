@@ -6,8 +6,7 @@ metadata:
   name: {{ $fullName }}
 spec:
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ .host }}
+    - host: {{ .Values.ingress.host }}
       http:
         paths:
           - backend:
@@ -17,4 +16,3 @@ spec:
                   number: {{ $svcPort }}
             path: /
             pathType: Prefix
-    {{- end }}
