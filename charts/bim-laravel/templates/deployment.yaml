@@ -21,13 +21,13 @@ spec:
             export DB_PASSWORD={{ .Data.password }}
           {{ end }}`}}
     spec:
+      serviceAccountName: {{ include "liblaravel.fullname" . }}
       containers:
         - name: {{ required "Name Required" .Chart.Name }}
           image: "{{ required "image.registry Required" .Values.image.registry }}/{{ required "image.repository Required" .Values.image.repository }}:{{ required "image.tag Required" .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.image.port }}
-          serviceAccountName: {{ include "liblaravel.fullname" . }}
           envFrom:
             - configMapRef:
                 name: "{{ include "liblaravel.fullname" . }}-env"
