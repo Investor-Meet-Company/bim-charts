@@ -14,6 +14,16 @@ entries:
   bim-laravel:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2022-05-10T20:45:07.172413197Z"
+    description: A Helm chart for Kubernetes
+    digest: d31c26368e934ca864136967c9d6750dd033e3e0e27698c2fb16cfa87a1b1286
+    name: bim-laravel
+    type: application
+    urls:
+    - https://github.com/Investor-Meet-Company/bim-charts/releases/download/bim-laravel-0.2.0/bim-laravel-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2022-05-09T20:05:06.94404939Z"
     description: A Helm chart for Kubernetes
     digest: ede6ba3de96e1b97b2860c8bdbd0b7717eac5add547ec29170bc1f24a53d36c8
