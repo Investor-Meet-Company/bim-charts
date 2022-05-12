@@ -13,3 +13,7 @@ service:
 ingress:
   host: #required
 
+database:
+  host: #required
+  name: #required
+

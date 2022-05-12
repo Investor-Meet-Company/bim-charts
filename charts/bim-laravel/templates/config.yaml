@@ -3,7 +3,11 @@ kind: ConfigMap
 metadata:
   name: {{ include "liblaravel.fullname" . }}-env
 data:
-  APP_DEBUG: "true"
-  APP_ENV: "local"
-  APP_NAME: "Name"
+  APP_DEBUG: "false"
+  APP_ENV: "productiion"
+  APP_NAME: "App"
   APP_KEY: "base64:fJZN6TrXzqgb6ppUrpV27n49wb3S+o3Q4Odm5zZWocY="
+  DB_CONNECTION: "mysql"
+  DB_HOST: {{ quote .Values.database.host }}
+  DB_DATABASE: {{ quote .Values.database.name }}
+
