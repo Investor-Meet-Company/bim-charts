@@ -3,7 +3,7 @@
 image:
   registry: #required
   repository: #required
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   tag: #required
   port: 80
 

@@ -28,6 +28,18 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.image.port }}
+#          lifecycle:
+#            postStart:
+#              exec:
+#                command: [ "/bin/sh", "source", "/vault/secrets/config" ]
+##                             "/bin/mysql", "<", "/docker-entrypoint-initdb.d/init.sql"]
           envFrom:
             - configMapRef:
                 name: "{{ include "liblaravel.fullname" . }}-env"
+          volumeMounts:
+            - name: mysql-initdb
+              mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: mysql-initdb
+          configMap:
+            name: {{ include "liblaravel.fullname" . }}-initdb
