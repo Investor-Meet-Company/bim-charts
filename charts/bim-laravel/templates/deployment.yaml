@@ -13,15 +13,15 @@ spec:
         {{- include "liblaravel.selectorLabels" . | nindent 8 }}
       annotations:
         vault.hashicorp.com/agent-inject: 'true'
-        vault.hashicorp.com/role: 'my-role'
-        vault.hashicorp.com/agent-inject-secret-db-creds: 'database/creds/my-role'
+        vault.hashicorp.com/role: 'bb-qa-role'
+        vault.hashicorp.com/agent-inject-secret-db-creds: 'database/creds/bb-qa-access'
         vault.hashicorp.com/agent-inject-template-db-creds: |
-          {{`{{ with secret "database/creds/my-role" }}
+          {{`{{ with secret "database/creds/bb-qa-access" }}
             export DB_USERNAME={{ .Data.username }}
             export DB_PASSWORD={{ .Data.password }}
           {{ end }}`}}
     spec:
-      serviceAccountName: {{ include "liblaravel.fullname" . }}
+      serviceAccountName: bb-qa-vault-auth
       containers:
         - name: {{ required "Name Required" .Chart.Name }}
           image: "{{ required "image.registry Required" .Values.image.registry }}/{{ required "image.repository Required" .Values.image.repository }}:{{ required "image.tag Required" .Values.image.tag }}"
