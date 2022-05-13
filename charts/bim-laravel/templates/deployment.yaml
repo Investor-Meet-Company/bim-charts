@@ -26,7 +26,6 @@ spec:
             [client]
             user="{{ .Data.username }}"
             password="{{ .Data.password }}"`}}
-            database="{{ .Values.database.name }}"
             host="{{ .Values.database.host }}"{{`
           {{ end }}`}}
     spec:
