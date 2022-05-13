@@ -48,8 +48,8 @@ spec:
         vault.hashicorp.com/agent-inject-template-creds: |
           {{`{{ with secret "database/creds/bb-qa-access" }}
             [client]
-            user={{ quote .Data.username }}
-            password={{ quote .Data.password }}}}
+            user="{{ quote .Data.username }}"
+            password={{ quote .Data.password }}`}}
             host={{ quote .Values.database.host }}{{`
           {{ end }}`}}
     spec:
