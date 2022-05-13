@@ -17,40 +17,40 @@ spec:
         vault.hashicorp.com/agent-inject-secret-hashids: 'kv/data/bb-qa-hashids'
         vault.hashicorp.com/agent-inject-template-hashids: |
           {{`{{ with secret "kv/data/bb-qa-hashids" }}
-            export HASHIDS_COMPANY_SALT={{ .Data.data.HASHIDS_COMPANY_SALT }}
-            export HASHIDS_DATA_SALT={{ .Data.data.HASHIDS_DATA_SALT }}
-            export HASHIDS_ORDER_SALT={{ .Data.data.HASHIDS_ORDER_SALT }}
-            export HASHIDS_REF_SALT={{ .Data.data.HASHIDS_REF_SALT }}
-            export HASHIDS_SALT={{ .Data.data.HASHIDS_SALT }}
+            export HASHIDS_COMPANY_SALT={{ quote .Data.data.HASHIDS_COMPANY_SALT }}
+            export HASHIDS_DATA_SALT={{ quote .Data.data.HASHIDS_DATA_SALT }}
+            export HASHIDS_ORDER_SALT={{ quote .Data.data.HASHIDS_ORDER_SALT }}
+            export HASHIDS_REF_SALT={{ quote .Data.data.HASHIDS_REF_SALT }}
+            export HASHIDS_SALT={{ quote .Data.data.HASHIDS_SALT }}
           {{ end }}`}}
         vault.hashicorp.com/agent-inject-secret-pusher: 'kv/data/bb-qa-pusher'
         vault.hashicorp.com/agent-inject-template-pusher: |
           {{`{{ with secret "kv/data/bb-qa-pusher" }}
-            export PUSHER_APP_CLUSTER={{ .Data.data.PUSHER_APP_CLUSTER }}
-            export PUSHER_APP_ID={{ .Data.data.PUSHER_APP_ID }}
-            export PUSHER_APP_KEY={{ .Data.data.PUSHER_APP_KEY }}
-            export PUSHER_APP_SECRET={{ .Data.data.PUSHER_APP_SECRET }}
-            export MIX_PUSHER_APP_KEY={{ .Data.data.PUSHER_APP_KEY }}
-            export MIX_PUSHER_APP_CLUSTER={{ .Data.data.PUSHER_APP_CLUSTER }}
+            export PUSHER_APP_CLUSTER={{ quote .Data.data.PUSHER_APP_CLUSTER }}
+            export PUSHER_APP_ID={{ quote .Data.data.PUSHER_APP_ID }}
+            export PUSHER_APP_KEY={{ quote .Data.data.PUSHER_APP_KEY }}
+            export PUSHER_APP_SECRET={{ quote .Data.data.PUSHER_APP_SECRET }}
+            export MIX_PUSHER_APP_KEY={{ quote .Data.data.PUSHER_APP_KEY }}
+            export MIX_PUSHER_APP_CLUSTER={{ quote .Data.data.PUSHER_APP_CLUSTER }}
           {{ end }}`}}
         vault.hashicorp.com/agent-inject-secret-sdk: 'kv/data/bb-qa-sdk'
         vault.hashicorp.com/agent-inject-template-sdk: |
           {{`{{ with secret "kv/data/bb-qa-sdk" }}
-            export BOOKBUILD_SDK_COMPANY_AUTH={{ .Data.data.BOOKBUILD_SDK_COMPANY_AUTH }}
+            export BOOKBUILD_SDK_COMPANY_AUTH={{ quote .Data.data.BOOKBUILD_SDK_COMPANY_AUTH }}
           {{ end }}`}}
         vault.hashicorp.com/agent-inject-secret-config: 'database/creds/bb-qa-access'
         vault.hashicorp.com/agent-inject-template-config: |
           {{`{{ with secret "database/creds/bb-qa-access" }}
-            export DB_USERNAME={{ .Data.username }}
-            export DB_PASSWORD={{ .Data.password }}
+            export DB_USERNAME={{ quote .Data.username }}
+            export DB_PASSWORD={{ quote .Data.password }}
           {{ end }}`}}
         vault.hashicorp.com/agent-inject-secret-creds: 'database/creds/bb-qa-access'
         vault.hashicorp.com/agent-inject-template-creds: |
           {{`{{ with secret "database/creds/bb-qa-access" }}
             [client]
-            user="{{ .Data.username }}"
-            password="{{ .Data.password }}"`}}
-            host="{{ .Values.database.host }}"{{`
+            user={{ quote .Data.username }}
+            password={{ quote .Data.password }}}}
+            host={{ quote .Values.database.host }}{{`
           {{ end }}`}}
     spec:
       serviceAccountName: bb-qa-vault-auth
