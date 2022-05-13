@@ -17,24 +17,24 @@ spec:
         vault.hashicorp.com/agent-inject-secret-hashids: 'kv/data/bb-qa-hashids'
         vault.hashicorp.com/agent-inject-template-hashids: |
           {{`{{ with secret "kv/data/bb-qa-hashids" }}
-            export HASHIDS_COMPANY_SALT={{ .Data.HASHIDS_COMPANY_SALT }}
-            export HASHIDS_DATA_SALT={{ .Data.HASHIDS_DATA_SALT }}
-            export HASHIDS_ORDER_SALT={{ .Data.HASHIDS_ORDER_SALT }}
-            export HASHIDS_REF_SALT={{ .Data.HASHIDS_REF_SALT }}
-            export HASHIDS_SALT={{ .Data.HASHIDS_SALT }}
+            export HASHIDS_COMPANY_SALT={{ .Data.data.HASHIDS_COMPANY_SALT }}
+            export HASHIDS_DATA_SALT={{ .Data.data.HASHIDS_DATA_SALT }}
+            export HASHIDS_ORDER_SALT={{ .Data.data.HASHIDS_ORDER_SALT }}
+            export HASHIDS_REF_SALT={{ .Data.data.HASHIDS_REF_SALT }}
+            export HASHIDS_SALT={{ .Data.data.HASHIDS_SALT }}
           {{ end }}`}}
         vault.hashicorp.com/agent-inject-secret-pusher: 'kv/data/bb-qa-pusher'
         vault.hashicorp.com/agent-inject-template-pusher: |
           {{`{{ with secret "kv/data/bb-qa-pusher" }}
-            export PUSHER_APP_CLUSTER={{ .Data.PUSHER_APP_CLUSTER }}
-            export PUSHER_APP_ID={{ .Data.PUSHER_APP_ID }}
-            export PUSHER_APP_KEY={{ .Data.PUSHER_APP_KEY }}
-            export PUSHER_APP_SECRET={{ .Data.PUSHER_APP_SECRET }}
+            export PUSHER_APP_CLUSTER={{ .Data.data.PUSHER_APP_CLUSTER }}
+            export PUSHER_APP_ID={{ .Data.data.PUSHER_APP_ID }}
+            export PUSHER_APP_KEY={{ .Data.data.PUSHER_APP_KEY }}
+            export PUSHER_APP_SECRET={{ .Data.data.PUSHER_APP_SECRET }}
           {{ end }}`}}
         vault.hashicorp.com/agent-inject-secret-sdk: 'kv/data/bb-qa-sdk'
         vault.hashicorp.com/agent-inject-template-sdk: |
           {{`{{ with secret "kv/data/bb-qa-sdk" }}
-            export BOOKBUILD_SDK_COMPANY_AUTH={{ .Data.BOOKBUILD_SDK_COMPANY_AUTH }}
+            export BOOKBUILD_SDK_COMPANY_AUTH={{ .Data.data.BOOKBUILD_SDK_COMPANY_AUTH }}
           {{ end }}`}}
         vault.hashicorp.com/agent-inject-secret-config: 'database/creds/bb-qa-access'
         vault.hashicorp.com/agent-inject-template-config: |
