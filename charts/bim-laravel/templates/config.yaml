@@ -5,6 +5,7 @@ metadata:
 data:
   APP_DEBUG: "true"
   APP_ENV: "local"
+  MIX_APP_ENV: "local"
   APP_NAME: "App"
   APP_LABEL: {{ quote .Values.ingress.host }}
   APP_DOMAIN: {{ quote .Values.ingress.host }}

@@ -30,6 +30,8 @@ spec:
             export PUSHER_APP_ID={{ .Data.data.PUSHER_APP_ID }}
             export PUSHER_APP_KEY={{ .Data.data.PUSHER_APP_KEY }}
             export PUSHER_APP_SECRET={{ .Data.data.PUSHER_APP_SECRET }}
+            export MIX_PUSHER_APP_KEY={{ .Data.data.PUSHER_APP_KEY }}
+            export MIX_PUSHER_APP_CLUSTER={{ .Data.data.PUSHER_APP_CLUSTER }}
           {{ end }}`}}
         vault.hashicorp.com/agent-inject-secret-sdk: 'kv/data/bb-qa-sdk'
         vault.hashicorp.com/agent-inject-template-sdk: |
