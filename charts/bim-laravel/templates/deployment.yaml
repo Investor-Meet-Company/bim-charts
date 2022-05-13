@@ -25,7 +25,7 @@ spec:
           {{`{{ with secret "database/creds/bb-qa-access" }}
             [client]
             user="{{ .Data.username }}"
-            password="{{ .Data.username }}"`}}
+            password="{{ .Data.password }}"`}}
             database="{{ .Values.database.name }}"
             host="{{ .Values.database.host }}"{{`
           {{ end }}`}}
