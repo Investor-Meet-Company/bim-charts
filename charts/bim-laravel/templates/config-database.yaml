@@ -4,4 +4,4 @@ metadata:
   name: {{ include "liblaravel.fullname" . }}-initdb
 data:
   init.sql: |
-    CREATE DATABASE IF NOT EXISTS {{ .Values.database.name }};
+    CREATE DATABASE IF NOT EXISTS `{{ .Values.database.name }}`;

@@ -20,6 +20,15 @@ spec:
             export DB_USERNAME={{ .Data.username }}
             export DB_PASSWORD={{ .Data.password }}
           {{ end }}`}}
+        vault.hashicorp.com/agent-inject-secret-creds: 'database/creds/bb-qa-access'
+        vault.hashicorp.com/agent-inject-template-creds: |
+          {{`{{ with secret "database/creds/bb-qa-access" }}
+            [client]
+            user="{{ .Data.username }}"
+            password="{{ .Data.username }}"`}}
+            database="{{ .Values.database.name }}"
+            host="{{ .Values.database.host }}"{{`
+          {{ end }}`}}
     spec:
       serviceAccountName: bb-qa-vault-auth
       containers:
@@ -32,7 +41,7 @@ spec:
 #            postStart:
 #              exec:
 #                command: [ "/bin/sh", "source", "/vault/secrets/config" ]
-##                             "/bin/mysql", "<", "/docker-entrypoint-initdb.d/init.sql"]
+##                             "/usr/bin/mysql", "<", "/docker-entrypoint-initdb.d/init.sql"]
           envFrom:
             - configMapRef:
                 name: "{{ include "liblaravel.fullname" . }}-env"
