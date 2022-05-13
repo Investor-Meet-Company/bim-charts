@@ -14,6 +14,28 @@ spec:
       annotations:
         vault.hashicorp.com/agent-inject: 'true'
         vault.hashicorp.com/role: 'bb-qa-role'
+        vault.hashicorp.com/agent-inject-secret-hashids: 'kv/data/bb-qa-hashids'
+        vault.hashicorp.com/agent-inject-template-hashids: |
+          {{`{{ with secret "kv/data/bb-qa-hashids" }}
+            export HASHIDS_COMPANY_SALT={{ .Data.HASHIDS_COMPANY_SALT }}
+            export HASHIDS_DATA_SALT={{ .Data.HASHIDS_DATA_SALT }}
+            export HASHIDS_ORDER_SALT={{ .Data.HASHIDS_ORDER_SALT }}
+            export HASHIDS_REF_SALT={{ .Data.HASHIDS_REF_SALT }}
+            export HASHIDS_SALT={{ .Data.HASHIDS_SALT }}
+          {{ end }}`}}
+        vault.hashicorp.com/agent-inject-secret-pusher: 'kv/data/bb-qa-pusher'
+        vault.hashicorp.com/agent-inject-template-pusher: |
+          {{`{{ with secret "kv/data/bb-qa-pusher" }}
+            export PUSHER_APP_CLUSTER={{ .Data.PUSHER_APP_CLUSTER }}
+            export PUSHER_APP_ID={{ .Data.PUSHER_APP_ID }}
+            export PUSHER_APP_KEY={{ .Data.PUSHER_APP_KEY }}
+            export PUSHER_APP_SECRET={{ .Data.PUSHER_APP_SECRET }}
+          {{ end }}`}}
+        vault.hashicorp.com/agent-inject-secret-sdk: 'kv/data/bb-qa-sdk'
+        vault.hashicorp.com/agent-inject-template-sdk: |
+          {{`{{ with secret "kv/data/bb-qa-sdk" }}
+            export BOOKBUILD_SDK_COMPANY_AUTH={{ .Data.BOOKBUILD_SDK_COMPANY_AUTH }}
+          {{ end }}`}}
         vault.hashicorp.com/agent-inject-secret-config: 'database/creds/bb-qa-access'
         vault.hashicorp.com/agent-inject-template-config: |
           {{`{{ with secret "database/creds/bb-qa-access" }}
@@ -30,17 +52,17 @@ spec:
           {{ end }}`}}
     spec:
       serviceAccountName: bb-qa-vault-auth
-      initContainers:
-        - name: {{ required "Name Required" .Chart.Name }}-init
-          image: "{{ required "image.registry Required" .Values.image.registry }}/{{ required "image.repository Required" .Values.image.repository }}:{{ required "image.tag Required" .Values.image.tag }}"
-          imagePullPolicy: "Always"
-          args: [ "init:production" ]
-          volumeMounts:
-            - name: mysql-initdb
-              mountPath: /docker-entrypoint-initdb.d
-          envFrom:
-            - configMapRef:
-                name: "{{ include "liblaravel.fullname" . }}-env"
+#      initContainers:
+#        - name: {{ required "Name Required" .Chart.Name }}-init
+#          image: "{{ required "image.registry Required" .Values.image.registry }}/{{ required "image.repository Required" .Values.image.repository }}:{{ required "image.tag Required" .Values.image.tag }}"
+#          imagePullPolicy: "Always"
+#          args: [ "init:production" ]
+#          volumeMounts:
+#            - name: mysql-initdb
+#              mountPath: /docker-entrypoint-initdb.d
+#          envFrom:
+#            - configMapRef:
+#                name: "{{ include "liblaravel.fullname" . }}-env"
       containers:
         - name: {{ required "Name Required" .Chart.Name }}
           image: "{{ required "image.registry Required" .Values.image.registry }}/{{ required "image.repository Required" .Values.image.repository }}:{{ required "image.tag Required" .Values.image.tag }}"
