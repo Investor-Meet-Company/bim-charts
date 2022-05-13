@@ -56,14 +56,6 @@ spec:
     spec:
       serviceAccountName: bb-qa-vault-auth
       initContainers:
-        # Volume Mount: Enables persistence between stages
-        - name: {{ required "Name Required" .Chart.Name }}-volume
-          image: "{{ required "image.registry Required" .Values.image.registry }}/{{ required "image.repository Required" .Values.image.repository }}:{{ required "image.tag Required" .Values.image.tag }}"
-          imagePullPolicy: "Always"
-          command: [ "/bin/sh", "-c", "cp -a /var/www/. /code" ]
-          volumeMounts:
-            - name: app-codebase
-              mountPath: /code
         # Init: Mix & DB
         - name: {{ required "Name Required" .Chart.Name }}-init
           image: "{{ required "image.registry Required" .Values.image.registry }}/{{ required "image.repository Required" .Values.image.repository }}:{{ required "image.tag Required" .Values.image.tag }}"
@@ -74,9 +66,6 @@ spec:
           volumeMounts:
             - name: mysql-initdb
               mountPath: /docker-entrypoint-initdb.d
-            - name: app-codebase
-              mountPath: /var/www
-
       containers:
         - name: {{ required "Name Required" .Chart.Name }}
           image: "{{ required "image.registry Required" .Values.image.registry }}/{{ required "image.repository Required" .Values.image.repository }}:{{ required "image.tag Required" .Values.image.tag }}"
@@ -89,11 +78,7 @@ spec:
           volumeMounts:
             - name: mysql-initdb
               mountPath: /docker-entrypoint-initdb.d
-            - name: app-codebase
-              mountPath: /var/www
       volumes:
-        - name: app-codebase
-          emptyDir: { }
         - name: mysql-initdb
           configMap:
             name: {{ include "liblaravel.fullname" . }}-initdb
