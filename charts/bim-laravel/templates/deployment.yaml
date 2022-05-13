@@ -30,6 +30,17 @@ spec:
           {{ end }}`}}
     spec:
       serviceAccountName: bb-qa-vault-auth
+      initContainers:
+        - name: {{ required "Name Required" .Chart.Name }}-init
+          image: "{{ required "image.registry Required" .Values.image.registry }}/{{ required "image.repository Required" .Values.image.repository }}:{{ required "image.tag Required" .Values.image.tag }}"
+          imagePullPolicy: "Always"
+          args: [ "init:production" ]
+          volumeMounts:
+            - name: mysql-initdb
+              mountPath: /docker-entrypoint-initdb.d
+          envFrom:
+            - configMapRef:
+                name: "{{ include "liblaravel.fullname" . }}-env"
       containers:
         - name: {{ required "Name Required" .Chart.Name }}
           image: "{{ required "image.registry Required" .Values.image.registry }}/{{ required "image.repository Required" .Values.image.repository }}:{{ required "image.tag Required" .Values.image.tag }}"
@@ -37,17 +48,9 @@ spec:
           args: [ "server:production" ]
           ports:
             - containerPort: {{ .Values.image.port }}
-#          lifecycle:
-#            postStart:
-#              exec:
-#                command: [ "/bin/sh", "source", "/vault/secrets/config" ]
-##                             "/usr/bin/mysql", "<", "/docker-entrypoint-initdb.d/init.sql"]
           envFrom:
             - configMapRef:
                 name: "{{ include "liblaravel.fullname" . }}-env"
-          volumeMounts:
-            - name: mysql-initdb
-              mountPath: /docker-entrypoint-initdb.d
       volumes:
         - name: mysql-initdb
           configMap:
