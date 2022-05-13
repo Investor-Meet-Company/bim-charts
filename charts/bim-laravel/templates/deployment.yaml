@@ -18,16 +18,11 @@ spec:
         vault.hashicorp.com/agent-inject-secret-hashids: 'kv/data/bb-qa-hashids'
         vault.hashicorp.com/agent-inject-template-hashids: |
           {{`{{ with secret "kv/data/bb-qa-hashids" }}
-            read -r  HASHIDS_COMPANY_SALT <<'EOF'{{ .Data.data.HASHIDS_COMPANY_SALT }}
-EOF
-            read -r  HASHIDS_DATA_SALT <<'EOF'{{ .Data.data.HASHIDS_DATA_SALT }}
-EOF
-            read -r  HASHIDS_ORDER_SALT <<'EOF'{{ .Data.data.HASHIDS_ORDER_SALT }}
-EOF
-            read -r  HASHIDS_REF_SALT <<'EOF'{{ .Data.data.HASHIDS_REF_SALT }}
-EOF
-            read -r  HASHIDS_SALT <<'EOF'{{ .Data.data.HASHIDS_SALT }}
-EOF
+            export HASHIDS_COMPANY_SALT="{{ .Data.data.HASHIDS_COMPANY_SALT }}"
+            export HASHIDS_DATA_SALT="{{ .Data.data.HASHIDS_DATA_SALT }}"
+            export HASHIDS_ORDER_SALT="{{ .Data.data.HASHIDS_ORDER_SALT }}"
+            export HASHIDS_REF_SALT="{{ .Data.data.HASHIDS_REF_SALT }}"
+            export HASHIDS_SALT="{{ .Data.data.HASHIDS_SALT }}"
           {{ end }}`}}
         vault.hashicorp.com/agent-inject-secret-pusher: 'kv/data/bb-qa-pusher'
         vault.hashicorp.com/agent-inject-template-pusher: |
