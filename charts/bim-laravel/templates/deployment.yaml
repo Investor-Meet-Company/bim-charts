@@ -59,6 +59,11 @@ spec:
             password={{ .Data.password }}`}}
             host={{ .Values.database.host }}{{`
           {{ end }}`}}
+        vault.hashicorp.com/agent-inject-secret-dns: 'database/creds/bb-qa-access'
+        vault.hashicorp.com/agent-inject-template-dns: |
+          {{`{{ with secret "database/creds/bb-qa-access" }}
+            mysql:`}}dbname={{ .Values.database.name }};host={{ .Values.database.host }};{{`user={{ .Data.username }};password={{ .Data.password }};
+          {{ end }}`}}
     spec:
       serviceAccountName: bb-qa-vault-auth
       initContainers:
