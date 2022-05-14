@@ -61,9 +61,9 @@ spec:
           {{ end }}`}}
         vault.hashicorp.com/agent-inject-secret-dns: 'database/creds/bb-qa-access'
         vault.hashicorp.com/agent-inject-template-dns: |
-          {{`{{ with secret "database/creds/bb-qa-access" }}
+          {{`{{ with secret "database/creds/bb-qa-access" -}}
             mysql:`}}dbname={{ .Values.database.name }};host={{ .Values.database.host }};{{`user={{ .Data.username }};password={{ .Data.password }};
-          {{ end }}`}}
+          {{- end }}`}}
     spec:
       serviceAccountName: bb-qa-vault-auth
       initContainers:
