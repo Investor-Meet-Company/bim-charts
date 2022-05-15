@@ -41,18 +41,19 @@ spec:
           {{ end }}`}}
         vault.hashicorp.com/agent-inject-secret-iam: 'aws/creds/bb-qa-access'
         vault.hashicorp.com/agent-inject-template-iam: |
-          {{`{{ with secret "aws/creds/bb-qa-access" }}
-            export AWS_ACCESS_KEY_ID="{{ .Data.access_key }}"
-            export AWS_SECRET_ACCESS_KEY="{{ .Data.secret_key }}"
-          {{ end }}`}}
+          {{`{{ with secret "aws/creds/bb-qa-access" -}}
+            [default]
+            aws_access_key_id="{{ .Data.access_key }}"
+            aws_secret_access_key="{{ .Data.secret_key }}"
+          {{- end }}`}}
         vault.hashicorp.com/agent-inject-secret-creds: 'database/creds/bb-qa-access'
         vault.hashicorp.com/agent-inject-template-creds: |
-          {{`{{ with secret "database/creds/bb-qa-access" }}
+          {{`{{ with secret "database/creds/bb-qa-access" -}}
             [client]
             user={{ .Data.username }}
             password={{ .Data.password }}`}}
             host={{ .Values.database.host }}{{`
-          {{ end }}`}}
+          {{- end }}`}}
         vault.hashicorp.com/agent-inject-secret-dns: 'database/creds/bb-qa-access'
         vault.hashicorp.com/agent-inject-template-dns: |
           {{`{{ with secret "database/creds/bb-qa-access" -}}
