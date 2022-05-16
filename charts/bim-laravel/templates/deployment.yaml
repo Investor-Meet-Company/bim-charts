@@ -81,9 +81,12 @@ spec:
           envFrom:
             - configMapRef:
                 name: "{{ include "liblaravel.fullname" . }}-env"
-          volumeMounts:
-            - name: mysql-initdb
-              mountPath: /docker-entrypoint-initdb.d
+        - name: {{ required "Name Required" .Chart.Name }}-queue
+          image: "{{ required "image.registry Required" .Values.image.registry }}/{{ required "image.repository Required" .Values.image.repository }}:{{ required "image.tag Required" .Values.image.tag }}"
+          args: [ "queue:production" ]
+          envFrom:
+            - configMapRef:
+                name: "{{ include "liblaravel.fullname" . }}-env"
       volumes:
         - name: mysql-initdb
           configMap:
