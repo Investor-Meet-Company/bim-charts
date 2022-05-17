@@ -1,4 +1,4 @@
-
+environment: production
 
 image:
   registry: #required

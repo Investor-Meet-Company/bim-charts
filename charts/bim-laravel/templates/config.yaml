@@ -3,6 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ include "liblaravel.fullname" . }}-env
 data:
+  APP_DEPLOYMENT_ENV: {{ quote .Values.environment }}
   APP_NAME: {{ include "liblaravel.fullname" . }}
   APP_DOMAIN: {{ quote .Values.ingress.host }}
   APP_URL: "http://{{ .Values.ingress.host }}"
