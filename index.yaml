@@ -332,6 +332,17 @@ entries:
     urls:
     - https://github.com/Investor-Meet-Company/bim-charts/releases/download/bim-laravel-0.30s.0/bim-laravel-0.30s.0.tgz
     version: 0.30s.0
+  bim-node:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-05-22T20:51:54.526771492Z"
+    description: A Helm chart for Kubernetes
+    digest: d3012a8d052675b75bce65f35c8cf04564821f4bc2e7c9089db4d95fc9bef8ef
+    name: bim-node
+    type: application
+    urls:
+    - https://github.com/Investor-Meet-Company/bim-charts/releases/download/bim-node-0.1.0/bim-node-0.1.0.tgz
+    version: 0.1.0
   cloud-chart:
   - apiVersion: v2
     appVersion: 2022.4.1
