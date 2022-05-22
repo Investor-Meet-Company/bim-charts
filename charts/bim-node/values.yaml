@@ -1,0 +1,15 @@
+environment: production
+
+image:
+  registry: #required
+  repository: #required
+  pullPolicy: IfNotPresent
+  tag: #required
+  port: 80
+
+service:
+  port: 80
+
+ingress:
+  host: #required
+

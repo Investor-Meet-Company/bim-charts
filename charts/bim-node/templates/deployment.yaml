@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "liblaravel.fullname" . }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "liblaravel.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "liblaravel.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: bb-qa-vault-auth
+      containers:
+        - name: {{ required "Name Required" .Chart.Name }}
+          image: "{{ required "image.registry Required" .Values.image.registry }}/{{ required "image.repository Required" .Values.image.repository }}:{{ required "image.tag Required" .Values.image.tag }}"
+          args: [ "server:production" ]
+          ports:
+            - containerPort: {{ .Values.image.port }}
+          envFrom:
+            - configMapRef:
+                name: "{{ include "liblaravel.fullname" . }}-env"
