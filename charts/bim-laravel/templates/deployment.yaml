@@ -19,7 +19,7 @@ spec:
         vault.hashicorp.com/agent-inject-template-env: |
           {{`{{ with secret "kv/data/bb-qa-env" }}
             {{ range $key, $value := .Data.data  }}
-            export $key="{{ $value }}"
+            export {{ $key }}="{{ $value }}"
             {{ end }}
           {{ end }}`}}
         vault.hashicorp.com/agent-inject-secret-iam: 'aws/creds/bb-qa-access'
