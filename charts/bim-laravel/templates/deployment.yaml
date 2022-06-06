@@ -64,12 +64,22 @@ spec:
           envFrom:
             - configMapRef:
                 name: "{{ include "liblaravel.fullname" . }}-env"
+#          resources:
+#            limits:
+#              cpu: 500m
+#            requests:
+#              cpu: 100m
         - name: {{ required "Name Required" .Chart.Name }}-queue
           image: "{{ required "image.registry Required" .Values.image.registry }}/{{ required "image.repository Required" .Values.image.repository }}:{{ required "image.tag Required" .Values.image.tag }}"
           args: [ "queue:production" ]
           envFrom:
             - configMapRef:
                 name: "{{ include "liblaravel.fullname" . }}-env"
+#          resources:
+#            limits:
+#              cpu: 500m
+#            requests:
+#              cpu: 50m
       volumes:
         - name: mysql-initdb
           configMap:
