@@ -1,0 +1,53 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "liblaravel.fullname" . }}
+spec:
+  schedule: "* * * * *"
+  template:
+    metadata:
+      labels:
+        {{- include "liblaravel.selectorLabels" . | nindent 8 }}
+      annotations:
+        vault.hashicorp.com/agent-inject: 'true'
+        vault.hashicorp.com/role: 'bb-qa-role'
+        vault.hashicorp.com/agent-init-first: "true"
+        vault.hashicorp.com/agent-inject-secret-env: 'kv/data/bb-qa-env'
+        vault.hashicorp.com/agent-inject-template-env: |
+          {{`{{ with secret "kv/data/bb-qa-env" }}
+            {{ range $key, $value := .Data.data  }}
+            export {{ $key }}="{{ $value }}"
+            {{ end }}
+          {{ end }}`}}
+        vault.hashicorp.com/agent-inject-secret-iam: 'aws/creds/bb-qa-access'
+        vault.hashicorp.com/agent-inject-template-iam: |
+          {{`{{ with secret "aws/creds/bb-qa-access" -}}
+            [default]
+            aws_access_key_id="{{ .Data.access_key }}"
+            aws_secret_access_key="{{ .Data.secret_key }}"
+          {{- end }}`}}
+        vault.hashicorp.com/agent-inject-secret-creds: 'database/creds/bb-qa-access'
+        vault.hashicorp.com/agent-inject-template-creds: |
+          {{`{{ with secret "database/creds/bb-qa-access" -}}
+            [client]
+            user={{ .Data.username }}
+            password={{ .Data.password }}`}}
+            host={{ .Values.database.host }}{{`
+          {{- end }}`}}
+        vault.hashicorp.com/agent-inject-secret-dns: 'database/creds/bb-qa-access'
+        vault.hashicorp.com/agent-inject-template-dns: |
+          {{`{{ with secret "database/creds/bb-qa-access" -}}
+            mysql:`}}dbname={{ .Values.database.name }};host={{ .Values.database.host }};{{`user={{ .Data.username }};password={{ .Data.password }};
+          {{- end }}`}}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: {{ required "Name Required" .Chart.Name }}-cron
+              image: "{{ required "image.registry Required" .Values.image.registry }}/{{ required "image.repository Required" .Values.image.repository }}:{{ required "image.tag Required" .Values.image.tag }}"
+              args: [ "cron:production" ]
+              envFrom:
+                - configMapRef:
+                    name: "{{ include "liblaravel.fullname" . }}-env"
+          restartPolicy: OnFailure
