@@ -50,4 +50,5 @@ spec:
               envFrom:
                 - configMapRef:
                     name: "{{ include "liblaravel.fullname" . }}-env"
+          concurrencyPolicy: Forbid
           restartPolicy: OnFailure
