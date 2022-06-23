@@ -4,6 +4,7 @@ metadata:
   name: {{ include "liblaravel.fullname" . }}
 spec:
   schedule: "* * * * *"
+  concurrencyPolicy: Forbid
   jobTemplate:
     spec:
       template:
@@ -50,5 +51,4 @@ spec:
               envFrom:
                 - configMapRef:
                     name: "{{ include "liblaravel.fullname" . }}-env"
-          concurrencyPolicy: Forbid
           restartPolicy: OnFailure
