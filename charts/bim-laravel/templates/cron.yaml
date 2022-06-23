@@ -12,6 +12,7 @@ spec:
             {{- include "liblaravel.selectorLabels" . | nindent 12 }}
           annotations:
             vault.hashicorp.com/agent-inject: 'true'
+            vault.hashicorp.com/agent-pre-populate-only : "true"
             vault.hashicorp.com/role: 'bb-qa-role'
             vault.hashicorp.com/agent-init-first: "true"
             vault.hashicorp.com/agent-inject-secret-env: 'kv/data/bb-qa-env'
