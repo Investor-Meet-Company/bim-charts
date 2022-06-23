@@ -9,7 +9,7 @@ spec:
       template:
         metadata:
           labels:
-            { { - include "liblaravel.selectorLabels" . | nindent 12 } }
+            {{- include "liblaravel.selectorLabels" . | nindent 12 }}
           annotations:
             vault.hashicorp.com/agent-inject: 'true'
             vault.hashicorp.com/role: 'bb-qa-role'
