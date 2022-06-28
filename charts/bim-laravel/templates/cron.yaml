@@ -11,8 +11,6 @@ spec:
     spec:
       template:
         metadata:
-          labels:
-            {{- include "liblaravel.selectorLabels" . | nindent 12 }}
           annotations:
             vault.hashicorp.com/agent-inject: 'true'
             vault.hashicorp.com/agent-pre-populate-only : "true"
