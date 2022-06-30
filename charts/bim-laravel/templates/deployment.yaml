@@ -12,43 +12,18 @@ spec:
       labels:
         {{- include "liblaravel.selectorLabels" . | nindent 8 }}
       annotations:
-        vault.hashicorp.com/agent-inject: 'true'
-        vault.hashicorp.com/role: 'bb-{{ .Values.environment }}-role'
-        vault.hashicorp.com/agent-init-first: "true"
-        vault.hashicorp.com/agent-inject-secret-env: 'kv/data/bb-{{ .Values.environment }}-env'
-        vault.hashicorp.com/agent-inject-template-env: |
-          {{`{{ with secret "kv/data/bb-`}}{{ .Values.environment }}{{`-env" }}
-            {{ range $key, $value := .Data.data  }}
-            export {{ $key }}="{{ $value }}"
-            {{ end }}
-          {{ end }}`}}
-        vault.hashicorp.com/agent-inject-secret-iam: 'aws/creds/bb-{{ .Values.environment }}-access'
-        vault.hashicorp.com/agent-inject-template-iam: |
-          {{`{{ with secret "aws/creds/bb-`}}{{ .Values.environment }}{{`-access" -}}
-            [default]
-            aws_access_key_id="{{ .Data.access_key }}"
-            aws_secret_access_key="{{ .Data.secret_key }}"
-          {{- end }}`}}
-        vault.hashicorp.com/agent-inject-secret-creds: 'database/creds/bb-{{ .Values.environment }}-access'
-        vault.hashicorp.com/agent-inject-template-creds: |
-          {{`{{ with secret "database/creds/bb-`}}{{ .Values.environment }}{{`-access" -}}
-            [client]
-            user={{ .Data.username }}
-            password={{ .Data.password }}`}}
-            host={{ .Values.database.host }}{{`
-          {{- end }}`}}
-        vault.hashicorp.com/agent-inject-secret-dns: 'database/creds/bb-{{ .Values.environment }}-access'
-        vault.hashicorp.com/agent-inject-template-dns: |
-          {{`{{ with secret "database/creds/bb-`}}{{ .Values.environment }}{{`-access" -}}
-            mysql:`}}dbname={{ .Values.database.name }};host={{ .Values.database.host }};{{`user={{ .Data.username }};password={{ .Data.password }};
-          {{- end }}`}}
+        {{- include "vault.inject" . | nindent 8 }}
+        {{- include "vault.env" . | nindent 8 }}
+        {{- include "vault.iam" . | nindent 8 }}
+        {{- include "vault.creds" . | nindent 8 }}
+        {{- include "vault.dns" . | nindent 8 }}
     spec:
       serviceAccountName: bb-{{ .Values.environment }}-vault-auth
       initContainers:
         # Init: Mix & DB
         - name: {{ required "Name Required" .Chart.Name }}-init
           image: "{{ required "image.registry Required" .Values.image.registry }}/{{ required "image.repository Required" .Values.image.repository }}:{{ required "image.tag Required" .Values.image.tag }}"
-          args: [ "init:production" ]
+          args: [ "init:{{ .Values.environment }}" ]
           envFrom:
             - configMapRef:
                 name: "{{ include "liblaravel.fullname" . }}-env"
@@ -58,7 +33,7 @@ spec:
       containers:
         - name: {{ required "Name Required" .Chart.Name }}
           image: "{{ required "image.registry Required" .Values.image.registry }}/{{ required "image.repository Required" .Values.image.repository }}:{{ required "image.tag Required" .Values.image.tag }}"
-          args: [ "server:production" ]
+          args: [ "server:{{ .Values.environment }}" ]
           ports:
             - containerPort: {{ .Values.image.port }}
           envFrom:
@@ -71,7 +46,7 @@ spec:
 #              cpu: 100m
         - name: {{ required "Name Required" .Chart.Name }}-queue
           image: "{{ required "image.registry Required" .Values.image.registry }}/{{ required "image.repository Required" .Values.image.repository }}:{{ required "image.tag Required" .Values.image.tag }}"
-          args: [ "queue:production" ]
+          args: [ "queue:{{ .Values.environment }}" ]
           envFrom:
             - configMapRef:
                 name: "{{ include "liblaravel.fullname" . }}-env"

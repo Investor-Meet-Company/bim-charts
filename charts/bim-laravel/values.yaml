@@ -1,19 +1,28 @@
 environment: qa
 
 image:
-  registry: #required
-  repository: #required
+  registry:  #required
+  repository:  #required
   pullPolicy: IfNotPresent
-  tag: #required
+  tag:  #required
   port: 80
 
 service:
   port: 80
 
 ingress:
-  host: #required
+  host:  #required
 
 database:
-  host: #required
-  name: #required
+  host:  #required
+  name:  #required
 
+cron:
+  enabled: false
+  schedule: "* * * * *"
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  averageCpuUtilization: 50
