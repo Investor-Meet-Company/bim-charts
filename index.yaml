@@ -505,6 +505,16 @@ entries:
   bim-node:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2022-07-01T21:16:46.828089686Z"
+    description: A Helm chart for Kubernetes
+    digest: c201f776e0a0deb1cb73c080068d18860d093f0182c351230aecb238f04b416a
+    name: bim-node
+    type: application
+    urls:
+    - https://github.com/Investor-Meet-Company/bim-charts/releases/download/bim-node-0.2.0/bim-node-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2022-05-22T20:51:54.526771492Z"
     description: A Helm chart for Kubernetes
     digest: d3012a8d052675b75bce65f35c8cf04564821f4bc2e7c9089db4d95fc9bef8ef
