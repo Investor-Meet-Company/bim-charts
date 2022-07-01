@@ -12,11 +12,11 @@ spec:
       labels:
         {{- include "liblaravel.selectorLabels" . | nindent 8 }}
     spec:
-      serviceAccountName: bb-qa-vault-auth
+      serviceAccountName: bb-{{ .Values.environment }}-vault-auth
       containers:
         - name: {{ required "Name Required" .Chart.Name }}
           image: "{{ required "image.registry Required" .Values.image.registry }}/{{ required "image.repository Required" .Values.image.repository }}:{{ required "image.tag Required" .Values.image.tag }}"
-          args: [ "server:production" ]
+          args: [ "server:{{ .Values.environment }}" ]
           ports:
             - containerPort: {{ .Values.image.port }}
           envFrom:
