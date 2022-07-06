@@ -12,6 +12,7 @@ data:
   DB_CONNECTION: "mysql"
 #  DB_HOST: {{ quote .Values.database.host }}
   DB_DATABASE: {{ quote .Values.database.name }}
+  CACHE_PREFIX: "{{ .Values.environment }}-{{ .Values.database.name }}-{{ .Values.image.tag }}"
   # Use the uri dns - set the user and password to null to the dns is used
 #  DB_DNS: "uri:file:///vault/secrets/dns"
 #  DB_USERNAME: "null"
