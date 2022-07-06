@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "liblaravel.fullname" . }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "liblaravel.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "liblaravel.selectorLabels" . | nindent 8 }}
+      annotations:
+        {{- include "vault.inject" . | nindent 8 }}
+        {{- include "vault.env" . | nindent 8 }}
+        {{- include "vault.iam" . | nindent 8 }}
+        {{- include "vault.creds" . | nindent 8 }}
+        {{- include "vault.dns" . | nindent 8 }}
+        {{- include "vault.db" . | nindent 8 }}
+    spec:
+      serviceAccountName: bb-{{ .Values.environment }}-vault-auth
+      initContainers:
+        - name: {{ required "Name Required" .Chart.Name }}-volume
+          image: "{{ required "image.registry Required" .Values.image.registry }}/{{ required "image.repository Required" .Values.image.repository }}:{{ required "image.tag Required" .Values.image.tag }}"
+          imagePullPolicy: "Always"
+          command: [ "/bin/sh", "-c", "cp -a /var/www/. /code" ]
+          volumeMounts:
+            - name: app-codebase
+              mountPath: /code
+        # Init: Mix & DB
+        - name: {{ required "Name Required" .Chart.Name }}-init
+          image: "{{ required "image.registry Required" .Values.image.registry }}/{{ required "image.repository Required" .Values.image.repository }}:{{ required "image.tag Required" .Values.image.tag }}"
+          args: [ "init:{{ .Values.environment }}" ]
+          envFrom:
+            - configMapRef:
+                name: "{{ include "liblaravel.fullname" . }}-env"
+          volumeMounts:
+            - name: mysql-initdb
+              mountPath: /docker-entrypoint-initdb.d
+      containers:
+        - name: {{ required "Name Required" .Chart.Name }}
+          image: "{{ required "image.registry Required" .Values.image.registry }}/{{ required "image.repository Required" .Values.image.repository }}:{{ required "image.tag Required" .Values.image.tag }}"
+          args: [ "server:{{ .Values.environment }}" ]
+          ports:
+            - containerPort: 9000
+          volumeMounts:
+            - name: app-codebase
+              mountPath: /var/www
+          envFrom:
+            - configMapRef:
+                name: "{{ include "liblaravel.fullname" . }}-env"
+          resources:
+            limits:
+              cpu: 750m
+            requests:
+              cpu: 200m
+        - name: {{ required "Name Required" .Chart.Name }}-nginx
+          image: nginx:1.19.2
+          ports:
+            - containerPort: {{ .Values.image.port }}
+              name: nginx
+          volumeMounts:
+            - name: app-codebase
+              mountPath: /var/www
+            - name: nginx-config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+              readOnly: true
+        - name: {{ required "Name Required" .Chart.Name }}-queue
+          image: "{{ required "image.registry Required" .Values.image.registry }}/{{ required "image.repository Required" .Values.image.repository }}:{{ required "image.tag Required" .Values.image.tag }}"
+          args: [ "queue:{{ .Values.environment }}" ]
+          envFrom:
+            - configMapRef:
+                name: "{{ include "liblaravel.fullname" . }}-env"
+          resources:
+            limits:
+              cpu: 500m
+            requests:
+              cpu: 100m
+      volumes:
+        - name: app-codebase
+          emptyDir: { }
+        - name: nginx-config
+          configMap:
+            name: {{ include "liblaravel.fullname" . }}-nginx
+        - name: mysql-initdb
+          configMap:
+            name: {{ include "liblaravel.fullname" . }}-initdb
