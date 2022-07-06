@@ -13,3 +13,6 @@ service:
 ingress:
   host: #required
 
+database:
+  host: #required
+  host_read: #required

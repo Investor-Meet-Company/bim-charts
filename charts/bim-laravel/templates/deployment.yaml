@@ -17,6 +17,7 @@ spec:
         {{- include "vault.iam" . | nindent 8 }}
         {{- include "vault.creds" . | nindent 8 }}
         {{- include "vault.dns" . | nindent 8 }}
+        {{- include "vault.db" . | nindent 8 }}
     spec:
       serviceAccountName: bb-{{ .Values.environment }}-vault-auth
       initContainers:

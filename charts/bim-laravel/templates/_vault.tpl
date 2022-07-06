@@ -25,6 +25,16 @@ vault.hashicorp.com/agent-inject-template-iam: |
   {{- end }}`}}
 {{- end }}
 
+{{- define "vault.db" -}}
+vault.hashicorp.com/agent-inject-secret-db: 'database/creds/bb-{{ .Values.environment }}-access'
+vault.hashicorp.com/agent-inject-template-db: |
+  {{`{{ with secret "database/creds/bb-`}}{{ .Values.environment }}{{`-access" -}}
+    export DB_USERNAME="{{ .Data.username }}"
+    export DB_PASSWORD="{{ .Data.password }}"`}}
+    export DB_HOST="{{ .Values.database.host }}"
+    export DB_HOST_READ="{{ .Values.database.host_read }}{{`
+  {{- end }}`}}
+{{- end }}
 
 {{- define "vault.creds" -}}
 vault.hashicorp.com/agent-inject-secret-creds: 'database/creds/bb-{{ .Values.environment }}-access'
