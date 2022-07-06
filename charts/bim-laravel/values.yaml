@@ -24,5 +24,5 @@ cron:
 autoscaling:
   enabled: false
   minReplicas: 1
-  maxReplicas: 10
-  averageCpuUtilization: 50
+  maxReplicas: 20
+  averageCpuUtilization: 25
