@@ -12,6 +12,7 @@ spec:
       labels:
         {{- include "liblaravel.selectorLabels" . | nindent 8 }}
       annotations:
+        sidecar.speedscale.com/inject: "true"
         {{- include "vault.inject" . | nindent 8 }}
         {{- include "vault.env" . | nindent 8 }}
         {{- include "vault.iam" . | nindent 8 }}
