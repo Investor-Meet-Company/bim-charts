@@ -55,7 +55,7 @@ vault.hashicorp.com/agent-inject-template-dns: |
 {{- define "vault.dns_read" -}}
 vault.hashicorp.com/agent-inject-secret-dns_read: 'database/creds/bb-{{ .Values.environment }}-access'
 vault.hashicorp.com/agent-inject-template-dns_read: |
-{{`{{ with secret "database/creds/bb-`}}{{ .Values.environment }}{{`-access" -}}
+  {{`{{ with secret "database/creds/bb-`}}{{ .Values.environment }}{{`-access" -}}
     mysql:`}}dbname={{ .Values.database.name }};host={{ .Values.database.host_read }};{{`user={{ .Data.username }};password={{ .Data.password }};
-{{- end }}`}}
+  {{- end }}`}}
 {{- end }}
