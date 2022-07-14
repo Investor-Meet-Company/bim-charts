@@ -15,6 +15,7 @@ ingress:
 
 database:
   host:  #required
+  host_read:  #required
   name:  #required
 
 cron:
